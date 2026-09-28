@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>ScanMenu portfolio plates</title>
+  <style>
+    :root { --ink:#251914; --burnt:#c44009; --cream:#f8f1e8; --muted:#786b61; --line:#e7d8c8; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family: "Segoe UI", Arial, sans-serif; color:var(--ink); }
+    .plate { display:none; position:relative; width:1600px; height:1000px; overflow:hidden; isolation:isolate; }
+    .plate.active { display:block; }
+    .eyebrow { font-size:17px; font-weight:800; letter-spacing:.22em; text-transform:uppercase; }
+    .brand { position:absolute; top:58px; left:88px; z-index:5; display:flex; align-items:center; gap:14px; font-size:29px; font-weight:900; letter-spacing:-.05em; }
+    .mark { width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:14px; background:var(--burnt); color:white; font-size:27px; font-weight:900; letter-spacing:-.08em; box-shadow:0 10px 20px #61240c24; }
+    h1 { margin:0; font-size:81px; letter-spacing:-.07em; line-height:1.05; font-weight:850; }
+    p { margin:0; }
+    .phone { position:absolute; width:366px; height:768px; border:4px solid #484442; border-radius:55px; padding:11px; background:#131314; box-shadow:0 34px 44px #28191050,0 72px 105px #2819103b, inset 0 0 0 2px #8b8986; }
+    .phone::after { content:""; position:absolute; left:50%; top:18px; transform:translateX(-50%); width:94px; height:23px; border-radius:0 0 18px 18px; background:#111; z-index:3; }
+    .phone .screen { width:100%; height:100%; border-radius:41px; overflow:hidden; background:#f9f5ef; }
+    .phone img { display:block; width:100%; height:100%; object-fit:cover; object-position:top; }
+    .micro { font-size:17px; line-height:1.45; color:var(--muted); }
+    .rule { height:1px; background:var(--line); }
+    .tag { display:inline-flex; align-items:center; gap:8px; border:1px solid #e4d4c2; border-radius:100px; padding:11px 17px; font-size:16px; font-weight:700; background:#ffffff9c; }
+    .dot { width:7px; height:7px; border-radius:50%; background:var(--burnt); }
+
+    #cover { background:radial-gradient(circle at 72% 43%,#e7cdb2 0,#e7cdb2 19%,transparent 19.2%), linear-gradient(127deg,#fffaf3 4%,#f6eadb 54%,#ead2b9 100%); }
+    #cover::before { content:""; position:absolute; inset:0; opacity:.32; background-image:radial-gradient(#a57c5b 1px,transparent 1px); background-size:24px 24px; mask-image:linear-gradient(90deg,transparent 47%,black 100%); }
+    #cover .intro { position:absolute; left:91px; top:225px; width:810px; z-index:2; }
+    #cover .intro .eyebrow { color:var(--burnt); margin-bottom:22px; }
+    #cover h1 { max-width:780px; }
+    #cover .sub { margin-top:29px; max-width:680px; font-size:25px; line-height:1.45; color:#62554b; }
+    #cover .tags { display:flex; gap:12px; margin-top:46px; }
+    #cover .feature { position:absolute; bottom:65px; left:91px; z-index:3; display:flex; gap:32px; align-items:center; }
+    #cover .feature .food { width:180px; height:120px; border:6px solid white; border-radius:19px; background:url('../../public/demo-food-grid.png') 0 0/200% 200%; box-shadow:0 14px 35px #4c26102c; }
+    #cover .feature .caption { width:400px; font-size:17px; line-height:1.45; color:#68594c; }
+    #cover .phone { left:1034px; top:104px; transform:rotate(7deg); z-index:2; }
+    #cover .orbit { position:absolute; width:850px; height:850px; left:933px; top:62px; border-radius:50%; border:1px solid #b9845e88; }
+    #cover .orbit.two { width:670px; height:670px; left:1023px; top:152px; }
+    #cover .folio { position:absolute; right:80px; bottom:49px; color:#7a5d4a; font-size:15px; font-weight:800; letter-spacing:.18em; }
+
+    #order { color:white; background:radial-gradient(circle at 46% 56%,#612a19 0,#391d16 46%,#211714 100%); }
+    #order::before { content:""; position:absolute; inset:0; background:repeating-linear-gradient(135deg,transparent 0,transparent 79px,#ffffff08 80px,#ffffff08 81px); opacity:.7; }
+    #order .mark { background:#e85d25; }
+    #order .topline { position:absolute; left:88px; top:146px; width:1424px; height:1px; background:#ffffff31; }
+    #order .copy { position:absolute; left:88px; top:220px; width:560px; }
+    #order .copy .eyebrow { color:#f7a374; margin-bottom:24px; }
+    #order h1 { font-size:75px; }
+    #order .sub { margin-top:31px; font-size:24px; line-height:1.4; color:#e8cec1; }
+    #order .steps { margin-top:57px; display:grid; gap:18px; }
+    #order .step { display:flex; align-items:center; gap:17px; font-size:21px; font-weight:650; }
+    #order .step b { width:38px; height:38px; border:1px solid #f9a578; border-radius:50%; display:grid; place-items:center; font-size:17px; color:#f9a578; }
+    #order .phone.first { left:771px; top:178px; transform:rotate(-8deg); z-index:2; }
+    #order .phone.second { left:1121px; top:137px; transform:rotate(8deg); z-index:3; }
+    #order .bottomline { position:absolute; bottom:53px; left:88px; width:610px; border-top:1px solid #ffffff31; padding-top:20px; color:#d8b5a4; font-size:16px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+
+    #owner { background:linear-gradient(120deg,#e8e5dd 0,#f9f5ec 54%,#f0dcc6 100%); }
+    #owner::before { content:""; position:absolute; width:820px; height:820px; right:-140px; top:85px; border-radius:50%; border:1px solid #c4a78f; box-shadow:0 0 0 60px #d2ad8b28,0 0 0 125px #d2ad8b18; }
+    #owner .copy { position:absolute; left:88px; top:213px; width:635px; }
+    #owner .copy .eyebrow { margin-bottom:22px; color:var(--burnt); }
+    #owner h1 { font-size:77px; }
+    #owner .sub { margin-top:27px; font-size:24px; line-height:1.45; color:#6b5a4e; }
+    #owner .card { position:absolute; left:88px; bottom:99px; width:579px; padding:27px 31px; border:1px solid #dfd2c4; background:#fffaf3d9; border-radius:22px; box-shadow:0 18px 45px #49342218; }
+    #owner .card .mini { color:var(--burnt); font-size:15px; font-weight:900; text-transform:uppercase; letter-spacing:.15em; }
+    #owner .card p { margin-top:10px; font-size:20px; line-height:1.45; }
+    #owner .phone.first { left:791px; top:167px; transform:rotate(-8deg); z-index:3; }
+    #owner .phone.second { left:1152px; top:127px; transform:rotate(8deg); z-index:2; }
+    #owner .folio { position:absolute; left:88px; bottom:45px; font-size:15px; font-weight:800; letter-spacing:.16em; color:#8d7767; }
+  </style>
+</head>
+<body>
+  <section class="plate" id="cover">
+    <div class="brand"><span class="mark">S<span style="color:#f7bd9a">.</span></span> ScanMenu</div>
+    <div class="orbit"></div><div class="orbit two"></div>
+    <div class="intro">
+      <div class="eyebrow">Restaurant ordering / case study</div>
+      <h1>From table scan to WhatsApp order.</h1>
+      <p class="sub">A focused mobile menu that lets guests browse, build an order, and send it straight to the restaurant.</p>
+      <div class="tags"><span class="tag"><span class="dot"></span> QR menu</span><span class="tag"><span class="dot"></span> English & Arabic</span><span class="tag"><span class="dot"></span> Owner dashboard</span></div>
+    </div>
+    <div class="feature"><div class="food"></div><div class="caption"><b>Made for the moment of ordering.</b><br> Clear dishes, availability, prices, and a quick handoff to WhatsApp.</div></div>
+    <div class="phone"><div class="screen"><img src="raw/menu-en.png" alt="English customer menu capture"></div></div>
+    <div class="folio">01 / CUSTOMER EXPERIENCE</div>
+  </section>
+
+  <section class="plate" id="order">
+    <div class="brand"><span class="mark">S<span style="color:#ffd1bb">.</span></span> ScanMenu</div>
+    <div class="topline"></div>
+    <div class="copy"><div class="eyebrow">The ordering flow</div><h1>Less friction.<br>More appetite.</h1><p class="sub">Guests choose a dish, review the cart, and continue into a prefilled WhatsApp message.</p>
+      <div class="steps"><div class="step"><b>1</b> Browse the menu</div><div class="step"><b>2</b> Choose delivery or pickup</div><div class="step"><b>3</b> Continue to WhatsApp</div></div>
+    </div>
+    <div class="phone first"><div class="screen"><img src="raw/menu-en.png" alt="English menu capture"></div></div>
+    <div class="phone second"><div class="screen"><img src="raw/cart-en.png" alt="English cart capture"></div></div>
+    <div class="bottomline">Mobile-first ordering · clear pricing</div>
+  </section>
+
+  <section class="plate" id="owner">
+    <div class="brand"><span class="mark">S<span style="color:#f7bd9a">.</span></span> ScanMenu</div>
+    <div class="copy"><div class="eyebrow">Behind the menu</div><h1>Made for the people running it.</h1><p class="sub">Owners manage categories, dishes, availability, opening hours, and their table QR cards from one responsive dashboard.</p></div>
+    <div class="card"><div class="mini">Owner workspace</div><p>Update a price or mark an item sold out, and the customer-facing menu stays in sync.</p></div>
+    <div class="phone first"><div class="screen"><img src="raw/dashboard-en.png" alt="English owner dashboard capture"></div></div>
+    <div class="phone second"><div class="screen"><img src="raw/menu-manager-en.png" alt="English menu management capture"></div></div>
+    <div class="folio">03 / RESTAURANT OPERATIONS</div>
+  </section>
+  <script>document.getElementById(new URLSearchParams(location.search).get('plate') || 'cover').classList.add('active');</script>
+</body>
+</html>

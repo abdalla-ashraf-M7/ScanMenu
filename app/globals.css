@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #fbf7f0;
+  --surface: #ffffff;
+  --ink: #291b14;
+  --ink-muted: #7a6a5e;
+  --brand: #c2410c;
+  --brand-strong: #9a3412;
+  --brand-soft: #fef0e6;
+  --wa: #22a455;
+  --wa-strong: #15803d;
+  --danger: #dc2626;
+  --warn: #d97706;
+  --border: #eee3d6;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-inkmuted: var(--ink-muted);
+  --color-brand: var(--brand);
+  --color-brandstrong: var(--brand-strong);
+  --color-brandsoft: var(--brand-soft);
+  --color-wa: var(--wa);
+  --color-wastrong: var(--wa-strong);
+  --color-danger: var(--danger);
+  --color-warn: var(--warn);
+  --color-line: var(--border);
+  --font-sans: var(--font-cairo), system-ui, sans-serif;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.safe-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
+}
+
+.press {
+  transition: transform 150ms ease-out, background-color 150ms ease-out,
+    box-shadow 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
+}
+.press:active {
+  transform: scale(0.98);
+}
+
+.sheet-enter {
+  animation: sheet-up 200ms ease-out;
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.fade-in {
+  animation: fade 180ms ease-out;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.print-card {
+  position: fixed;
+  top: -2000px;
+  inset-inline-start: 0;
+  width: 210mm;
+  min-height: 297mm;
+  background: #fff;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  body * {
+    visibility: hidden !important;
+  }
+  .print-card,
+  .print-card * {
+    visibility: visible !important;
+  }
+  .print-card {
+    position: absolute !important;
+    top: 0 !important;
+    inset-inline-start: 0 !important;
+    display: grid !important;
+    place-items: center;
+    padding: 12mm;
+  }
+}
